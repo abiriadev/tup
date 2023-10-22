@@ -30,5 +30,8 @@ pub fn tup(input: TokenStream) -> TokenStream {
 		Err(e) => return e.into_compile_error(),
 	};
 
-	todo!()
+	(0..res.rep)
+		.into_iter()
+		.map(|_| res.tt.clone())
+		.collect::<TokenStream>()
 }
