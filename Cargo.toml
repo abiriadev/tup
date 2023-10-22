@@ -10,6 +10,7 @@ proc-macro = true
 [dependencies]
 proc-macro2 = "1.0.69"
 syn = { version = "2.0.38", features = ["extra-traits", "full"] }
+tap = "1.0.1"
 
 [dev-dependencies]
 trybuild = "1.0.85"

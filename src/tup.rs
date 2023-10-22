@@ -3,6 +3,7 @@ use syn::{
 	parse::{Parse, ParseStream},
 	parse2, LitInt, Token,
 };
+use tap::{Conv, Tap};
 
 struct Tup {
 	rep: usize,
@@ -35,9 +36,15 @@ pub fn tup(input: TokenStream) -> TokenStream {
 		(0..res.rep)
 			.into_iter()
 			.map(|_| {
-				let mut ts: TokenStream = res.tt.clone().into();
-				ts.extend([TokenTree::Punct(Punct::new(',', Spacing::Alone))]);
-				ts
+				res.tt
+					.clone()
+					.conv::<TokenStream>()
+					.tap_mut(|ts| {
+						ts.extend([TokenTree::Punct(Punct::new(
+							',',
+							Spacing::Alone,
+						))])
+					})
 			})
 			.collect(),
 	))
