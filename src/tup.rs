@@ -1,5 +1,3 @@
-use std::iter::once;
-
 use proc_macro2::{Delimiter, Group, Punct, Spacing, TokenStream, TokenTree};
 use syn::{
 	parse::{Parse, ParseStream},
