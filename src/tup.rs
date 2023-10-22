@@ -1,4 +1,4 @@
-use proc_macro2::{TokenStream, TokenTree};
+use proc_macro2::{Punct, Spacing, TokenStream, TokenTree};
 use syn::{
 	parse::{Parse, ParseStream},
 	parse2, LitInt, Token,
@@ -32,6 +32,10 @@ pub fn tup(input: TokenStream) -> TokenStream {
 
 	(0..res.rep)
 		.into_iter()
-		.map(|_| res.tt.clone())
+		.map(|_| {
+			let mut ts: TokenStream = res.tt.clone().into();
+			ts.extend([TokenTree::Punct(Punct::new(',', Spacing::Alone))]);
+			ts
+		})
 		.collect::<TokenStream>()
 }
